@@ -139,6 +139,19 @@
                 </td>      
             </tr>
             <tr>
+                <td>Image:</td>
+                <td><asp:Image ID="Image1" Width="128px" Height="108px" runat="server" /></td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <asp:Panel ID="PanelimageName" runat="server" Visible="False">
+                    <asp:TextBox ID="txtimagename" runat="server"></asp:TextBox>
+                    </asp:Panel>
+                </td>
+            </tr>
+            <tr>
                 <td>
 
                     <asp:Label ID="lblcat" runat="server" Visible="False"></asp:Label>

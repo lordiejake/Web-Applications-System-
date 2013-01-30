@@ -27,12 +27,47 @@ public partial class Admin_Control_Panel_IndexProductsDescriptionsPanel : System
         }
     }
 
+    private void StartUpLoad() {
+
+        FileUpload ImageUpload = Article2.ContentPlaceholder.Controls[0].FindControl("ImageUpload") as FileUpload;
+        //get the file name of the posted image
+            string imgName = ImageUpload.FileName;
+        //sets the image path
+           string imgPath = "ImageStorage/" + imgName;          
+         //get the size in bytes that
+          int imgSize = ImageUpload.PostedFile.ContentLength;
+        //validates the posted file before saving
+          if (ImageUpload.PostedFile != null && ImageUpload.PostedFile.FileName != "")
+          {
+              // 10240 KB means 10MB, You can change the value based on your requirement
+              if (ImageUpload.PostedFile.ContentLength > 1000240)
+              {
+                  Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "Alert", "alert('File is too big.')", true);
+              }
+              else
+              {
+
+                  //then save it to the Folder
+
+                  ImageUpload.SaveAs(Server.MapPath(imgPath));
+                  Image Imageone = Article2.ContentPlaceholder.Controls[0].FindControl("Image1") as Image;
+                  Imageone.ImageUrl = "~/" + imgPath;
+
+                  //Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "Alert", "alert('Image saved!')", true);
+
+              }
+
+          }
+
+      }
 
     protected void btnCreate_Click(object sender, EventArgs e)
     {
+
         PopulateAllCategoriesID();
         PopulateAllGenderTypeID();
         PopulateAllCollectionsCategoryID();
+
 
         try
         {
@@ -40,6 +75,7 @@ public partial class Admin_Control_Panel_IndexProductsDescriptionsPanel : System
             if (double.Parse(txtprice.Text) >= 0)
             {
                 CreateProducts();
+                
             }
             else
             {
@@ -61,6 +97,20 @@ public partial class Admin_Control_Panel_IndexProductsDescriptionsPanel : System
         }
 
         
+    }
+
+
+    void getImageFilename() 
+    {
+        FileUpload ImageUpload = Article2.ContentPlaceholder.Controls[0].FindControl("ImageUpload") as FileUpload;
+        if (ImageUpload.PostedFile != null)
+        {
+            TextBox txtimagename = Article2.ContentPlaceholder.Controls[0].FindControl("txtimagename") as TextBox;
+            string FileName = Path.GetFileName(ImageUpload.PostedFile.FileName);
+            txtimagename.Text = FileName.ToString();
+
+        }
+
     }
 
     void PopulateAllCategories()
@@ -258,6 +308,7 @@ public partial class Admin_Control_Panel_IndexProductsDescriptionsPanel : System
             TextBox txtdescription = Article2.ContentPlaceholder.Controls[0].FindControl("txtdescription") as TextBox;
             TextBox txtprice = Article2.ContentPlaceholder.Controls[0].FindControl("txtprice") as TextBox;
             TextBox txtstatus = Article2.ContentPlaceholder.Controls[0].FindControl("txtstatus") as TextBox;
+            TextBox txtimagename = Article2.ContentPlaceholder.Controls[0].FindControl("txtimagename") as TextBox;
             FileUpload ImageUpload = Article2.ContentPlaceholder.Controls[0].FindControl("ImageUpload") as FileUpload;
             System.Drawing.Image imag = System.Drawing.Image.FromStream( ImageUpload.PostedFile.InputStream);
             Label lblcat = Article2.ContentPlaceholder.Controls[0].FindControl("lblcat") as Label;
@@ -265,7 +316,8 @@ public partial class Admin_Control_Panel_IndexProductsDescriptionsPanel : System
             Label lblcollection = Article2.ContentPlaceholder.Controls[0].FindControl("lblcollection") as Label;
             
             SqlConnection conn = ClassConnection.ConnectToServer();
-            System.Data.SqlClient.SqlCommand insertCommand = new System.Data.SqlClient.SqlCommand("Insert into [PRODUCT] (Category_Num,GenderCategory_Num,Collection_Num,Product_Name,Product_UpdatedDescription,Product_UpdatedPrice,Product_Status,Product_Image) Values (@Category_Num,@GenderCategory_Num,@Collection_Num,@Product_Name,@Product_UpdatedDescription,@Product_UpdatedPrice,@Product_Status,@Product_Image)", conn);
+            getImageFilename(); // image filename additional.
+            System.Data.SqlClient.SqlCommand insertCommand = new System.Data.SqlClient.SqlCommand("Insert into [PRODUCT] (Category_Num,GenderCategory_Num,Collection_Num,Product_Name,Product_UpdatedDescription,Product_UpdatedPrice,Product_Status,Product_Image,ImageName) Values (@Category_Num,@GenderCategory_Num,@Collection_Num,@Product_Name,@Product_UpdatedDescription,@Product_UpdatedPrice,@Product_Status,@Product_Image,@ImageName)", conn);
             insertCommand.Parameters.Add(new SqlParameter("@Category_Num", lblcat.Text));
             insertCommand.Parameters.Add(new SqlParameter("@GenderCategory_Num", lblgender.Text));
             insertCommand.Parameters.Add(new SqlParameter("@Collection_Num", lblcollection.Text));
@@ -274,6 +326,7 @@ public partial class Admin_Control_Panel_IndexProductsDescriptionsPanel : System
             insertCommand.Parameters.Add(new SqlParameter("@Product_UpdatedPrice", double.Parse(txtprice.Text)));
             insertCommand.Parameters.Add(new SqlParameter("@Product_Status", txtstatus.Text));
             insertCommand.Parameters.Add("Product_Image", SqlDbType.Image, 0).Value = ConvertImageToByteArray(imag, System.Drawing.Imaging.ImageFormat.Jpeg);
+            insertCommand.Parameters.Add(new SqlParameter("@ImageName", txtimagename.Text));
             int queryResult = insertCommand.ExecuteNonQuery();
             if (queryResult == 1)
             {
@@ -282,14 +335,15 @@ public partial class Admin_Control_Panel_IndexProductsDescriptionsPanel : System
 
                 CategoryExistsPanel.Visible = false;
                 CategoryAdded.Visible = true;
-
-                //txtdescription.Text = string.Empty;
-                //txtprice.Text = string.Empty;
-                //txtproduct.Text = string.Empty;
-                //txtstatus.Text = string.Empty;
-                //lblcat.Text = null;
-                //lblcollection.Text = null;
-                //lblgender.Text = null;
+                StartUpLoad();
+                txtdescription.Text = string.Empty;
+                txtprice.Text = string.Empty;
+                txtproduct.Text = string.Empty;
+                txtstatus.Text = string.Empty;
+                lblcat.Text = null;
+                lblcollection.Text = null;
+                lblgender.Text = null;
+                txtimagename.Text = null;
             }
         }
         catch (Exception)

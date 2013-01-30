@@ -72,3 +72,4 @@ D:\OrderManagementSystem\OrderManagementSystem\bin\Debug\OrderManagementSystem.a
 D:\OrderManagementSystem\OrderManagementSystem\obj\Debug\OrderManagementSystem.exe.manifest
 D:\OrderManagementSystem\OrderManagementSystem\obj\Debug\OrderManagementSystem.application
 D:\OrderManagementSystem\OrderManagementSystem\obj\Debug\OrderManagementSystem.Payments.resources
+C:\Users\sony\Documents\GitHub\Web-Applications-System-\OrderManagementSystem\OrderManagementSystem\obj\Debug\OrderManagementSystem.pdb

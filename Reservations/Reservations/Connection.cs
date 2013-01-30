@@ -14,7 +14,7 @@ namespace Reservations
     {
         public static SqlConnection ConnectToServer()
         {
-            string command = @"Server=duldulaokzes-pc\sqlexpress;Database=ReservationSystemz;Trusted_Connection=Yes";
+            string command = @"Server=.\sqlexpress;Database=ReservationSystemz;Trusted_Connection=Yes";
             SqlConnection conn = new SqlConnection(command);
             conn.Open();
             return conn;

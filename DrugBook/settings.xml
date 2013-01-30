@@ -1,0 +1,66 @@
+<settings>
+<General_Properties>
+    <rotationAngle value="0"/>
+    <rotationAngleType value="path"/>
+    <thumbWidth value="141"/>
+    <thumbHeight value="95"/>
+    <radiusX value="232"/>
+    <radiusY value="55"/>
+    <centerX value="300"/>
+    <centerY value="150"/>
+    <perspective value="57"/>
+    <useBlur value="false"/>
+    <blurIntensity value="60"/>
+    <useAlpha value="true"/>
+    <alphaIntensity value="9"/>
+    <backgroundColor value="0"/>
+    <carouselWidth value="600"/>
+    <carouselHeight value="400"/>
+    <showCenteredImage value="true"/>
+    <centeredImageAlpha value="50"/>
+    <imagesXML value="images.xml"/>
+</General_Properties>
+<Rotation_Properties>
+    <rotateOnRollOver value="both"/>
+    <onRollOverSpeed value="25"/>
+    <onRollOutSpeed value="5"/>
+    <stoppingSpeed value="20"/>
+    <inverseRotation value="none"/>
+    <stopOnRollOver value="false"/>
+    <buttonsX value="110"/>
+    <buttonsY value="310"/>
+    <buttonsDistance value="300"/>
+    <buttonSymbol value="but1"/>
+</Rotation_Properties>
+<Reflection_Properties>
+    <useReflection value="true"/>
+    <reflectionAlpha value="100"/>
+    <reflectionSpread value="30"/>
+    <reflectionDistance value="1"/>
+</Reflection_Properties>
+<Roll_Over_Properties>
+    <rollOverBehavior value="alpha2"/>
+    <brightnessOver value="100"/>
+    <brightnessOut value="35"/>
+    <brightnessSpeed value="7"/>
+</Roll_Over_Properties>
+<Tooltip_Properties>
+    <visibility value="frontmost"/>
+    <position value="bottom"/>
+    <appearance value="top"/>
+    <backColor value="0xeeeeee"/>
+    <backAlpha value="25"/>
+    <cornerRadius value="3"/>
+    <easingFunction value="Regular"/>
+    <easingDuration value="0.5"/>
+    <fontFace value="Verdana"/>
+    <fontSize value="12"/>
+    <fontColor value="0x333333"/>
+</Tooltip_Properties>
+<Frame_Properties>
+    <imageFrames value="selected"/>
+    <frameThickness value="4"/>
+    <frameColor value="0xeeeeee"/>
+    <frameAlpha value="70"/>
+</Frame_Properties>
+</settings>
