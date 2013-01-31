@@ -10,7 +10,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
+using System.Xml.Linq;//linq
 using System.Data.SqlClient;
 
 public partial class AddIllness : System.Web.UI.Page
