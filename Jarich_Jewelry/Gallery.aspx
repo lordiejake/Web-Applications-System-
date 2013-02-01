@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/design/MasterPage.master" AutoEventWireup="true" CodeFile="Select-Products-Transactions.aspx.cs" Inherits="Select_Products_Transactions" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/design/MasterPage.master" AutoEventWireup="true" CodeFile="Gallery.aspx.cs" Inherits="Gallery" %>
 
 <%@ Import Namespace="Artisteer" %>
 <%@ Register TagPrefix="artisteer" Namespace="Artisteer" %>
@@ -23,28 +23,15 @@
 
 
 <asp:Content ID="SheetContent" ContentPlaceHolderID="SheetContentPlaceHolder" Runat="Server">
- 
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Untitled Page</title>
-    <link href="css/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
-    <script src="scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
-    <script src="scripts/jquery.autocomplete.js" type="text/javascript"></script>
- <script type="text/javascript">
-     $(document).ready(function () {
-         $("#<%=txtProductSearch.ClientID%>").autocomplete("Search.ashx", {
-             width: 450,
-             formatItem: function (data, i, n, value) {
-                 return "<img style = 'width:50px;height:50px' src='ImageStorage/" + value.split(",")[1] + "'/> " + value.split(",")[0];
-             },
-             formatResult: function (data, value) {
-                 return value.split(",")[0];
-             }
-         });
-     });
-</script>
+<link rel="stylesheet" href="lightbox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="prototype.js"></script>
+<script type="text/javascript" src="scriptaculous.js?load=effects"></script>
+<script type="text/javascript" src="lightbox.js"></script>
 </head>
 
 <artisteer:Article ID="Article1" Caption="Birthday Jewelry" runat="server"><ContentTemplate>
@@ -79,52 +66,38 @@
     </p>
     </asp:Panel>
 
+    <%--<div>
+        <asp:DataList ID="dlImages" runat="server" RepeatColumns="3" CellPadding="5">
+<ItemTemplate>
+<a id="imageLink" href='<%# Eval("ImageName","~/ImageStorage/{0}") %>' title='<%#Eval("Product_Name") %>' rel="lightbox[Brussels]" runat="server" >
+<asp:Image ID="Image1" ImageUrl='<%# Bind("ImageName", "~/ImageStorage/{0}") %>' runat="server" Width="112" Height="84" />
+</a> 
+</ItemTemplate>
+<ItemStyle BorderColor="Brown" BorderStyle="dotted" BorderWidth="3px" HorizontalAlign="Center"
+VerticalAlign="Bottom" />
+</asp:DataList>
+    </div>--%>
+
  </ContentTemplate></artisteer:Article>
- <fieldset>
-    <div>
-                            <asp:ImageButton ID="ImageButton1" runat="server" 
-                                ImageUrl="~/images/view-cart.gif" 
-            onclick="ImageButton1_Click" />
-                            </div>
- </fieldset>
-<fieldset>
+ 
+        <asp:DataList ID="dlImages" runat="server" RepeatColumns="6" CellPadding="8">
+<ItemTemplate>
+<a id="imageLink" href='<%# Eval("ImageName","~/ImageStorage/{0}") %>' title='<%#Eval("Product_Name") %>' rel="lightbox[Brussels]" runat="server" >
+<asp:Image ID="Image1" ImageUrl='<%# Bind("ImageName", "~/ImageStorage/{0}") %>' runat="server" Width="112" Height="84" />
+</a> 
 <table>
     <tr>
-        <td>
-            Search Product:
-        </td>
-        <td>
-            <asp:TextBox ID="txtProductSearch" runat="server" Width="450px"></asp:TextBox>
-        </td>
+        <td>Price: </td>
+        <td><asp:Label ID="Label1" runat="server" Text='<%#Eval("Product_UpdatedPrice") %>'></asp:Label></td>
     </tr>
 </table>
-<div>
-    <asp:GridView ID="GridImageRetrieve" runat="server" AutoGenerateColumns="False" 
-        AllowPaging="True" DataKeyNames="Product_Num" 
-        onpageindexchanging="GridImageRetrieve_PageIndexChanging" 
-        onrowcommand="GridImageRetrieve_RowCommand">
-        <Columns>
-            <asp:BoundField DataField="Product_Num" HeaderText="id" Visible="False" />
-            <asp:CommandField SelectText="Select this Product [view]" 
-                ShowSelectButton="True">
-            <ItemStyle ForeColor="#CC9900" />
-            </asp:CommandField>
-            <asp:BoundField DataField="Product_Name" HeaderText="ProductName" />
-            <asp:BoundField DataField="Product_UpdatedDescription" HeaderText="Description" />
-            <asp:BoundField DataField="Product_UpdatedPrice" HeaderText="Price" />
-            <asp:BoundField DataField="Product_Status" HeaderText="Status" />
-            <asp:TemplateField HeaderText="Image">
-              <ItemTemplate>
-                  <asp:Image ID="Image1" ImageUrl='<%# "Handler.ashx?ImID="+ Eval("Product_Num") %>' Height="150px" Width= "150px" runat="server" />
-              </ItemTemplate>
-            </asp:TemplateField>
-        </Columns>
-        <PagerSettings Position="TopAndBottom" />
-        <RowStyle HorizontalAlign="Left" VerticalAlign="Top" />
-    </asp:GridView>
-</div>
-    
-</fieldset>
+<hr />
+</ItemTemplate>
+<ItemStyle BorderColor="Brown" BorderStyle="dotted" BorderWidth="3px" HorizontalAlign="Center"
+VerticalAlign="Bottom" />
+</asp:DataList>
+
+
 
            <artisteer:Article ID="Article3" Caption="We Accept the following Credit Cards below:" runat="server"><ContentTemplate>
     <img src="images/preview.jpg" alt="an image" style="float:left;" />
@@ -133,4 +106,6 @@
  </ContentTemplate></artisteer:Article>
 
 </asp:Content>
+
+
 

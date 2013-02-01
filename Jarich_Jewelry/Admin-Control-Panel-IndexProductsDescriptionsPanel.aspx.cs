@@ -64,13 +64,14 @@ public partial class Admin_Control_Panel_IndexProductsDescriptionsPanel : System
     protected void btnCreate_Click(object sender, EventArgs e)
     {
 
-        PopulateAllCategoriesID();
-        PopulateAllGenderTypeID();
-        PopulateAllCollectionsCategoryID();
+        
 
 
         try
         {
+            PopulateAllCategoriesID();
+            PopulateAllGenderTypeID();
+            PopulateAllCollectionsCategoryID();
             TextBox txtprice = Article2.ContentPlaceholder.Controls[0].FindControl("txtprice") as TextBox;
             if (double.Parse(txtprice.Text) >= 0)
             {
@@ -337,9 +338,9 @@ public partial class Admin_Control_Panel_IndexProductsDescriptionsPanel : System
                 CategoryAdded.Visible = true;
                 StartUpLoad();
                 txtdescription.Text = string.Empty;
-                txtprice.Text = string.Empty;
+                //txtprice.Text = null;
                 txtproduct.Text = string.Empty;
-                txtstatus.Text = string.Empty;
+                //txtstatus.Text = string.Empty;
                 lblcat.Text = null;
                 lblcollection.Text = null;
                 lblgender.Text = null;
